@@ -21,3 +21,14 @@ body {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+.task {
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.task span {
+    display: block;
+}
