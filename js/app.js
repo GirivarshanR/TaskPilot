@@ -27,8 +27,18 @@ addTaskBtn.addEventListener("click", function () {
             : "none";
     });
 
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", function () {
+        taskElement.remove();
+    });
+
+
     taskElement.appendChild(checkbox);
     taskElement.appendChild(taskTextElement);
+    taskElement.appendChild(deleteBtn);
 
     tasksContainer.appendChild(taskElement);
 
