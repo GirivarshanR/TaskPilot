@@ -5,6 +5,11 @@ const tasksContainer = document.getElementById("tasksContainer");
 const tasks = [];
 
 
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+
 function createTask(task) {
 
     const taskElement = document.createElement("div");
@@ -12,9 +17,14 @@ function createTask(task) {
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
 
     const taskTextElement = document.createElement("span");
     taskTextElement.textContent = task.title;
+
+    if (task.completed) {
+        taskTextElement.style.textDecoration = "line-through";
+    }
 
     checkbox.addEventListener("change", function () {
 
@@ -23,31 +33,34 @@ function createTask(task) {
         taskTextElement.style.textDecoration = task.completed
             ? "line-through"
             : "none";
+
+        saveTasks();
     });
 
 
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
+
     editBtn.addEventListener("click", function () {
 
-    const newTitle = prompt("Edit task:", task.title);
+        const newTitle = prompt("Edit task:", task.title);
 
-    if (newTitle === null) {
-        return;
-    }
+        if (newTitle === null) {
+            return;
+        }
 
-    const updatedTitle = newTitle.trim();
+        const updatedTitle = newTitle.trim();
 
-    if (updatedTitle === "") {
-        return;
-    }
+        if (updatedTitle === "") {
+            return;
+        }
 
-    task.title = updatedTitle;
+        task.title = updatedTitle;
+        taskTextElement.textContent = task.title;
 
-    taskTextElement.textContent = task.title;
+        saveTasks();
+    });
 
-
-});
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
@@ -62,6 +75,8 @@ function createTask(task) {
 
         taskElement.remove();
 
+        saveTasks();
+
         console.log(tasks);
     });
 
@@ -72,6 +87,21 @@ function createTask(task) {
     taskElement.appendChild(deleteBtn);
 
     tasksContainer.appendChild(taskElement);
+}
+
+
+const savedTasks = localStorage.getItem("tasks");
+
+if (savedTasks !== null) {
+
+    const loadedTasks = JSON.parse(savedTasks);
+
+    loadedTasks.forEach(function (task) {
+
+        tasks.push(task);
+        createTask(task);
+
+    });
 }
 
 
@@ -95,5 +125,16 @@ addTaskBtn.addEventListener("click", function () {
 
     createTask(newTask);
 
+    saveTasks();
+
     taskInput.value = "";
+});
+
+
+taskInput.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter") {
+        addTaskBtn.click();
+    }
+
 });
