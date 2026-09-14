@@ -26,6 +26,29 @@ function createTask(task) {
     });
 
 
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.addEventListener("click", function () {
+
+    const newTitle = prompt("Edit task:", task.title);
+
+    if (newTitle === null) {
+        return;
+    }
+
+    const updatedTitle = newTitle.trim();
+
+    if (updatedTitle === "") {
+        return;
+    }
+
+    task.title = updatedTitle;
+
+    taskTextElement.textContent = task.title;
+
+
+});
+
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
 
@@ -45,6 +68,7 @@ function createTask(task) {
 
     taskElement.appendChild(checkbox);
     taskElement.appendChild(taskTextElement);
+    taskElement.appendChild(editBtn);
     taskElement.appendChild(deleteBtn);
 
     tasksContainer.appendChild(taskElement);
