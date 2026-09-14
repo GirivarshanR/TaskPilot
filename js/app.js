@@ -2,6 +2,10 @@ const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const tasksContainer = document.getElementById("tasksContainer");
 
+const allBtn = document.getElementById("allBtn");
+const activeBtn = document.getElementById("activeBtn");
+const completedBtn = document.getElementById("completedBtn");
+
 const tasks = [];
 
 
@@ -25,6 +29,7 @@ function createTask(task) {
     if (task.completed) {
         taskTextElement.style.textDecoration = "line-through";
     }
+
 
     checkbox.addEventListener("change", function () {
 
@@ -56,6 +61,7 @@ function createTask(task) {
         }
 
         task.title = updatedTitle;
+
         taskTextElement.textContent = task.title;
 
         saveTasks();
@@ -90,6 +96,19 @@ function createTask(task) {
 }
 
 
+function renderTasks(taskList) {
+
+    tasksContainer.innerHTML = "";
+
+    taskList.forEach(function (task) {
+
+        createTask(task);
+
+    });
+
+}
+
+
 const savedTasks = localStorage.getItem("tasks");
 
 if (savedTasks !== null) {
@@ -102,6 +121,7 @@ if (savedTasks !== null) {
         createTask(task);
 
     });
+
 }
 
 
@@ -136,5 +156,38 @@ taskInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         addTaskBtn.click();
     }
+
+});
+
+
+allBtn.addEventListener("click", function () {
+
+    renderTasks(tasks);
+
+});
+
+
+activeBtn.addEventListener("click", function () {
+
+    const activeTasks = tasks.filter(function (task) {
+
+        return task.completed === false;
+
+    });
+
+    renderTasks(activeTasks);
+
+});
+
+
+completedBtn.addEventListener("click", function () {
+
+    const completedTasks = tasks.filter(function (task) {
+
+        return task.completed === true;
+
+    });
+
+    renderTasks(completedTasks);
 
 });
