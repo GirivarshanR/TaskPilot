@@ -1,9 +1,38 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 20px;
+    background: #f4f6f8;
+    color: #222;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
+
+
+/* Header */
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #666;
+    font-size: 16px;
+}
+
+
+/* Task Input */
 
 .task-input {
     display: flex;
@@ -13,22 +42,132 @@ body {
 
 #taskInput {
     flex: 1;
-    padding: 10px;
+    padding: 13px 15px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+#taskInput:focus {
+    border-color: #555;
 }
 
 #addTaskBtn {
-    padding: 10px 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    font-size: 15px;
     cursor: pointer;
 }
 
+#addTaskBtn:hover {
+    background: #444;
+}
+
+
+/* Task List */
+
+.task-list {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.task-list h2 {
+    margin-bottom: 20px;
+}
+
+
+/* Filters */
+
+.task-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.task-filters button {
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+}
+
+.task-filters button:hover {
+    background: #f0f0f0;
+}
+
+
+/* Task Card */
+
 .task {
-    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #e2e2e2;
     border-radius: 8px;
+    background: #fafafa;
 }
 
 .task span {
-    display: block;
+    flex: 1;
+    font-size: 15px;
+}
+
+
+/* Task Buttons */
+
+.task button {
+    padding: 7px 11px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+}
+
+.task button:hover {
+    background: #f0f0f0;
+}
+
+
+/* Checkbox */
+
+.task input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        font-size: 34px;
+    }
+
+    .task-input {
+        flex-direction: column;
+    }
+
+    #addTaskBtn {
+        width: 100%;
+    }
+
+    .task {
+        flex-wrap: wrap;
+    }
+
 }
